@@ -11,15 +11,16 @@ using namespace std;
 
 class SymString
 {
-	string sym_identifier;
+	string identifier;
 	string symstring;
 public:
 	SymString();
 	SymString(const string);
 	SymString(const SymString&);
-	string GetIdentifier() const { return sym_identifier; }
-	string GetSymString() const { return symstring; }
-	void SetSymString(const string);
+	string GetIdentifier() const { return identifier; }
+	string GetString() const { return symstring; }
+	void SetString(const string);
+	void SetIdentifier(const string);
 
 	friend string operator + (const SymString&, const SymString&);
 	friend ostream& operator << (ostream&, const SymString&);

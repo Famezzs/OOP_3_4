@@ -39,12 +39,12 @@ void Factory::AddObject(const string sym_string)
 	cout << "List of SymStrings is full.\n\n";
 }
 
-void Factory::AddObject(const string sym_string, const int oct_string)
+void Factory::AddObject(const int oct_string)
 {
 	for (size_t i = 0; i < size; i++)
 		if (!octs[i])
 		{
-			octs[i] = new OctString(sym_string, oct_string);
+			octs[i] = new OctString(oct_string);
 			return;
 		}
 	cout << "List of OctStrings is full.\n\n";
@@ -86,24 +86,22 @@ void Factory::Print() const
 		if (syms[i])
 		{
 			cout << "|" << setw(2) << right << i+1 << "| " << setw(10) << left << syms[i]->GetIdentifier() << " | " 
-				<< setw(20) << left << syms[i]->GetSymString()
+				<< setw(20) << left << syms[i]->GetString()
 				<< " |\n";
 		}
 	cout << "========================================\n\n\n";
 
 	cout << "OctString objects' list :\n";
-	cout << "==========================================================================\n";
-	cout << "|No| SymIdentifiers |      SymStrings      | OctIdentifiers | OctStrings |\n";
-	cout << "==========================================================================\n";
+	cout << "============================================\n";
+	cout << "|No| SymIdentifiers |      OctStrings      |\n";
+	cout << "============================================\n";
 	for (size_t i = 0; i < size; i++)
 		if (octs[i])
 		{
-			cout << "|" << setw(2) << right << i+1 << "| " << setw(14) << left << octs[i]->SymString::GetIdentifier() 
-				<< " | " << setw(20) << left << octs[i]->GetSymString()
-				<< " | " << setw(14) << left << octs[i]->GetIdentifier() 
-				<< " | " << setw(10) << left << octs[i]->GetOctString() << " |\n";
+			cout << "|" << setw(2) << right << i+1 << "| " << setw(14) << left << octs[i]->GetIdentifier() 
+				<< " | " << setw(20) << left << octs[i]->GetString() << " |\n"; 
 		}
-	cout << "==========================================================================\n";
+	cout << "============================================\n";
 }
 
 Factory::operator string() const
@@ -117,24 +115,22 @@ Factory::operator string() const
 		if (syms[i])
 		{
 			sout << "|" << setw(2) << right << i + 1 << "| " << setw(10) << left << syms[i]->GetIdentifier() << " | "
-				<< setw(20) << left << syms[i]->GetSymString()
+				<< setw(20) << left << syms[i]->GetString()
 				<< " |\n";
 		}
 	sout << "========================================\n\n\n";
 
 	sout << "OctString objects' list :\n";
-	sout << "==========================================================================\n";
-	sout << "|No| SymIdentifiers |      SymStrings      | OctIdentifiers | OctStrings |\n";
-	sout << "==========================================================================\n";
+	sout << "============================================\n";
+	sout << "|No| SymIdentifiers |      OctStrings      |\n";
+	sout << "============================================\n";
 	for (size_t i = 0; i < size; i++)
 		if (octs[i])
 		{
-			sout << "|" << setw(2) << right << i + 1 << "| " << setw(14) << left << octs[i]->SymString::GetIdentifier()
-				<< " | " << setw(20) << left << octs[i]->GetSymString()
-				<< " | " << setw(14) << left << octs[i]->GetIdentifier()
-				<< " | " << setw(10) << left << octs[i]->GetOctString() << " |\n";
+			sout << "|" << setw(2) << right << i + 1 << "| " << setw(14) << left << octs[i]->GetIdentifier()
+				<< " | " << setw(20) << left << octs[i]->GetString() << " |\n";
 		}
-	sout << "==========================================================================\n";
+	sout << "============================================\n";
 
 	return sout.str();
 }

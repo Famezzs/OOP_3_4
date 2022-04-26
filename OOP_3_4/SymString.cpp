@@ -7,9 +7,9 @@ SymString::SymString()
 	GUID guid;
 	HRESULT result = CoCreateGuid(&guid);
 	if (result == S_OK)
-		sym_identifier = to_string(guid.Data1);
+		identifier = to_string(guid.Data1);
 	else
-		sym_identifier = "invalid";
+		identifier = "invalid";
 }
 
 SymString::SymString(const string str)
@@ -18,9 +18,9 @@ SymString::SymString(const string str)
 	GUID guid;
 	HRESULT result = CoCreateGuid(&guid);
 	if (result == S_OK)
-		sym_identifier = to_string(guid.Data1);
+		identifier = to_string(guid.Data1);
 	else
-		sym_identifier = "invalid";
+		identifier = "invalid";
 }
 
 SymString::SymString(const SymString& cpy)
@@ -29,14 +29,19 @@ SymString::SymString(const SymString& cpy)
 	GUID guid;
 	HRESULT result = CoCreateGuid(&guid);
 	if (result == S_OK)
-		sym_identifier = to_string(guid.Data1);
+		identifier = to_string(guid.Data1);
 	else
-		sym_identifier = "invalid";
+		identifier = "invalid";
 }
 
-void SymString::SetSymString(const string str)
+void SymString::SetString(const string str)
 {
 	symstring = str;
+}
+
+void SymString::SetIdentifier(const string identifier)
+{
+	this->identifier = identifier;
 }
 
 string operator + (const SymString &a, const SymString &b)
@@ -47,7 +52,7 @@ string operator + (const SymString &a, const SymString &b)
 SymString::operator string() const
 {
 	stringstream sout;
-	sout << "SymIdentifier : " << sym_identifier << ", SymString : " << symstring;
+	sout << "Identifier : " << identifier << ", String : " << symstring;
 	return sout.str();
 }
 
@@ -61,7 +66,7 @@ istream& operator >> (istream& in, SymString& to_in)
 {
 	cin.get();
 	cin.sync();
-	cout << "SymString : ";
+	cout << "String : ";
 	getline(in, to_in.symstring);
 
 	return in;

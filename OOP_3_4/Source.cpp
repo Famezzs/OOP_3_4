@@ -28,12 +28,8 @@ int main()
 		case 'b':
 			cin.get();
 			cin.sync();
-			do
-			{
-				cout << "SymString : "; getline(cin, str);
-			} while (str == "");
 			cout << "Int to OctString : "; cin >> _oct;
-			a.AddObject(str, _oct);
+			a.AddObject(_oct);
 			break;
 		case 'c':
 			a.Print();

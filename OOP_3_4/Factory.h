@@ -14,7 +14,7 @@ public:
 	SymString** GetSyms() const { return syms; }
 	OctString** GetOcts() const { return octs; }
 	void AddObject(const string);
-	void AddObject(const string, const int);
+	void AddObject(const int);
 	bool DeleteObject(const string, const int);
 	void Print() const;
 

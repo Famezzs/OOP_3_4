@@ -7,9 +7,9 @@ OctString::OctString()
 	GUID guid;
 	HRESULT result = CoCreateGuid(&guid);
 	if (result == S_OK)
-		oct_identifier = to_string(guid.Data1);
+		SetIdentifier(to_string(guid.Data1));
 	else
-		oct_identifier = "invalid";
+		SetIdentifier("invalid");
 }
 
 OctString::OctString(const int tostr)
@@ -17,43 +17,29 @@ OctString::OctString(const int tostr)
 	GUID guid;
 	HRESULT result = CoCreateGuid(&guid);
 	if (result == S_OK)
-		oct_identifier = to_string(guid.Data1);
+		SetIdentifier(to_string(guid.Data1));
 	else
-		oct_identifier = "invalid";
+		SetIdentifier("invalid");
 
-	stringstream sout;
-	sout << oct << tostr;
-	octstring = sout.str();
+	SetOctString(tostr);
 }
 
-OctString::OctString(const string tosym, const int tostr)
-	:SymString(tosym)
-{
-	GUID guid;
-	HRESULT result = CoCreateGuid(&guid);
-	if (result == S_OK)
-		oct_identifier = to_string(guid.Data1);
-	else
-		oct_identifier = "invalid";
-
-	stringstream sout;
-	sout << oct << tostr;
-	octstring = sout.str();
-}
+OctString::OctString(const string tosym)
+	:SymString(tosym) {}
 
 void OctString::SetOctString(const int tostr)
 {
 	stringstream sout;
 	sout << oct << tostr;
-	octstring = sout.str();
+	SetString(sout.str());
 }
 
 string OctString::ShowBin() const
 {
 	stringstream sout;
-	for (size_t i = 0; i < octstring.size(); i++)
+	for (size_t i = 0; i < GetString().size(); i++)
 	{
-		switch (octstring.at(i))
+		switch (GetString().at(i))
 		{
 		case '0':
 			sout << "000 ";
@@ -89,28 +75,20 @@ OctString operator + (const OctString& a, const OctString& b)
 	int decstring_a = 0;
 	int decstring_b = 0;
 
-	int k = a.octstring.size() - 1;
-	for (size_t i = 0; i < a.octstring.size(); i++)
-		decstring_a += (a.octstring.at(i) - '0') * static_cast<int>(pow(8, k--));
+	int k = a.GetString().size() - 1;
+	for (size_t i = 0; i < a.GetString().size(); i++)
+		decstring_a += (a.GetString().at(i) - '0') * static_cast<int>(pow(8, k--));
 
-	k = b.octstring.size() - 1;
-	for (size_t i = 0; i < b.octstring.size(); i++)
-		decstring_b += (b.octstring.at(i) - '0') * static_cast<int>(pow(8, k--));
+	k = b.GetString().size() - 1;
+	for (size_t i = 0; i < b.GetString().size(); i++)
+		decstring_b += (b.GetString().at(i) - '0') * static_cast<int>(pow(8, k--));
 
-	return OctString(a.GetSymString() + b.GetSymString(), decstring_a + decstring_b);
-}
-
-OctString::operator string() const
-{
-	stringstream sout;
-	sout << SymString::operator string() << ", OctIdentifier : " << oct_identifier << ", OctString : "
-		<< octstring << ", OctToBinary : " << ShowBin();
-	return sout.str();
+	return OctString(decstring_a + decstring_b);
 }
 
 ostream& operator << (ostream& out, const OctString& to_out)
 {
-	out << string(to_out) << endl;
+	out << string(to_out) << ", BinString : " << to_out.ShowBin() << endl;
 	return out;
 }
 
