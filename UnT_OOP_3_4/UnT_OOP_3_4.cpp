@@ -14,8 +14,8 @@ namespace UnTOOP34
 		
 		TEST_METHOD(TestMethod1)
 		{
-			OctString a("agf", 64);
-			Assert::AreEqual("100", a.GetOctString().c_str());
+			OctString a(64);
+			Assert::AreEqual("100", a.GetString().c_str());
 		}
 	};
 }

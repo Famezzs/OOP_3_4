@@ -1,5 +1,5 @@
 ///////////////////////////////////////////
-// OctString.cpp
+// OctString.h
 #pragma once
 #include "SymString.h"
 
